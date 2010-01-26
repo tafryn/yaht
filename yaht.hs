@@ -164,4 +164,11 @@ module Main
     {-overload :: Double -> Double-}
     {-overload x = 2*x-}
 
+    -- Example using the 'Maybe' type
+    firstElement :: [a] -> Maybe a
+    firstElement []     = Nothing
+    firstElement (x:xs) = Just x
+
+    -- Detour into data.hs
+
 -- vim: ts=4 sw=4 et:
