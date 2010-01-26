@@ -136,4 +136,32 @@ module Main
         putStrLn ("Product:" ++ show(foldr (*) 1 nums))
         putStrLn ("Factorias:" ++ show(map factorial nums))
 
+    lsquare = \x -> x*x
+    lf = \x y -> 2*x + y
+    
+    -- Prelude> :t (+)
+    -- Prelude> :t (*)
+    -- Prelude> :t (++)
+    -- Prelude> :t (:)
+
+    -- The following shows how to using IOStrings with a function, f, that
+    -- takes strings. The <- is what actually does this conversion and the 'do'
+    -- is necessary to use the <- ?
+    main2 = do
+        s <- readFile "someFile"
+        let i = 'a':s 
+        putStrLn (show i)
+
+    tdsquare :: Num a => a -> a
+    tdsquare x = x*x
+
+    -- More refined, limited definition of square
+    refined_square :: Int -> Int
+    refined_square x = x*x
+
+{-    overload :: Int -> Int-}
+    {-overload x = x-}
+    {-overload :: Double -> Double-}
+    {-overload x = 2*x-}
+
 -- vim: ts=4 sw=4 et:
