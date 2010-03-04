@@ -30,6 +30,7 @@ module Main
     where
     
     import Char
+    import IO
 
     x = 5
     y = (6, "Hello")
@@ -102,6 +103,8 @@ module Main
             then return []
             else return (word : INCORRECTaskForWords)
 -}
+    -- 'do' is used to sequence actions. It is not necessary if there is 
+    -- only one action.
     askForWords = do
         putStrLn "Please enter a word:"
         word <- getLine
@@ -171,4 +174,18 @@ module Main
 
     -- Detour into data.hs
 
+    stackDepth :: Int -> IO()
+    stackDepth x = do
+        if (x `mod` 1000000) == 0
+            then do putStrLn (show x)
+            else putStr ""
+        stackDepth(x+1)
+
+    mainHello = do
+        hSetBuffering stdin LineBuffering
+        putStrLn "Please enter your name: "
+        name <- getLine
+        putStrLn ("Hello, " ++ name ++ ", how are you?")
+
+    -- Detour into Guess.hs
 -- vim: ts=4 sw=4 et:
