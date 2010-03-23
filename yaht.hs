@@ -1,3 +1,5 @@
+-- DON'T forget the syntactically significant whitespace
+-- Make sure to use only spaces. Spaces and tabs = trouble
 -- Prelude> 5*4+3
 -- Prelude> 5^5-2
 -- Prelude> sqrt 2                  -- note that parens are not required around funciton arguments
@@ -137,7 +139,7 @@ module Main
         which is [a] typed -}
         putStrLn ("Sum:" ++ show (sum nums))
         putStrLn ("Product:" ++ show(foldr (*) 1 nums))
-        putStrLn ("Factorias:" ++ show(map factorial nums))
+        putStrLn ("Factorials:" ++ show(map factorial nums))
 
     lsquare = \x -> x*x
     lf = \x y -> 2*x + y
@@ -188,4 +190,8 @@ module Main
         putStrLn ("Hello, " ++ name ++ ", how are you?")
 
     -- Detour into Guess.hs
+
+    main = do
+        putStrLn("TEST")
+
 -- vim: ts=4 sw=4 et:

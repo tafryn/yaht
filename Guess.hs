@@ -9,7 +9,9 @@ main = do
     --num <- randomRIO (1::Int, 100)
     --putStrLn "I'm thinking of a number between 1 and 100"
     --doGuessing num
-    doNameGuessIf
+    --doNameGuessIf
+    putStrLn "Name:"
+    name <- getLine
 
 doGuessing num = do
     putStrLn "Enter your guess:"
