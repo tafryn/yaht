@@ -191,6 +191,35 @@ module Main
 
     -- Detour into Guess.hs
 
+    -- Detour into Data.hs
+
+    -- Detour into iotest.hs
+
+    gtTup :: Num a => Ord a => [(a,b)] -> [(a,b)]
+    gtTup lst = filter (\ (a,b) -> a > 0) lst
+
+    etaGtTup0 = filter (\ (a,b) -> a > 0)
+    etaGtTup1 = filter (\x -> fst x > 0)
+    etaGtTup2 = filter (\x -> ((>0) . fst) x)
+    etaGtTup3 = filter ((>0) . fst)
+
+    func1 x l = map (\y -> y*x) l
+    func1' x = map (*x)
+
+    func2 f g l = filter f (map g l)
+    func2' f g = filter f . map g 
+
+    pair x = (x,x)
+    func3 f l = l ++ map f l
+    --impossible
+    --func3' f = uncurry (++) . pair 
+
+    func4 l = map (\y -> y+2) (filter (\z -> z `elem` [1..10]) (5:l))
+    func4' = map (+2) . filter (`elem` [1..10]) . ((:) 5)
+
+    func5 f l = foldr (\x y -> f (y,x)) 0 l
+    func5' f = foldr (flip . curry $ f) 0
+
     main = do
         putStrLn("TEST")
 

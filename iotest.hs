@@ -28,7 +28,7 @@ module Main
         case line of
             "." -> return []
             _   -> do rest <- gatherLoop
-                      return (line ++ "\n" ++ rest)
+                      return $ line ++ "\n" ++ rest
 
     exercise = do
         putStrLn "Do you want to [read], [write], or [quit]?"
