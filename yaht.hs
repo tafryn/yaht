@@ -220,6 +220,94 @@ module Main
     func5 f l = foldr (\x y -> f (y,x)) 0 l
     func5' f = foldr (flip . curry $ f) 0
 
+    -- Pattern Matching
+
+    data Color
+        = Red
+        | Orange
+        | Yellow
+        | Green
+        | Blue
+        | Purple
+        | White
+        | Black
+        | Custom Int Int Int -- R G B components
+        deriving (Show,Eq)
+
+    colorToRGB Red = (255,0,0)
+    colorToRGB Orange = (255,128,0)
+    colorToRGB Yellow = (255,255,0)
+    colorToRGB Green = (0,255,0)
+    colorToRGB Blue = (0,0,255)
+    colorToRGB Purple = (255,0,255)
+    colorToRGB White = (255,255,255)
+    colorToRGB Black = (0,0,0)
+    colorToRGB (Custom r g b) = (r,g,b)
+
+    isBright = isBright' . colorToRGB
+        where isBright' (255,_,_) = True
+              isBright' (_,255,_) = True
+              isBright' (_,_,255) = True
+              isBright' _         = False
+
+    rgbToColor 255   0   0 = Just Red
+    rgbToColor 255 128   0 = Just Orange
+    rgbToColor 255 255   0 = Just Yellow
+    rgbToColor   0 255   0 = Just Green
+    rgbToColor   0   0 255 = Just Blue
+    rgbToColor 255   0 255 = Just Purple
+    rgbToColor 255 255 255 = Just White
+    rgbToColor   0   0   0 = Just Black
+    rgbToColor   r   g   b = 
+        if 0 <= r && r <= 255 &&
+           0 <= g && g <= 255 &&
+           0 <= b && b <= 255
+            then Just (Custom r g b)
+            else Nothing -- invalid RGB value
+
+    rgbIsValid r g b = rgbIsValid' (rgbToColor r g b)
+        where rgbIsValid' (Just _) = True
+              rbbIsValid' _        = False
+
+    -- Guards
+    comparison x y | x < y = "The first is less"
+                   | x > y = "The second is less"
+                   | otherwise = "They are equal"
+
+    -- This will NOT fall through as expected.
+    comparison2 x y | x < y = "The first is less"
+                    | x > y = "The second is less"
+    comparison2 _ _ = "They are equal"
+
+    -- Instance Declarations
+
+    {-instance Eq Color where
+        Red == Red = True
+        Orange == Orange = True
+        Yellow == Yellow = True
+        Green == Green = True
+        Blue == Blue = True
+        Purple == Purple = True
+        White == White = True
+        Black == Black = True
+        (Custom r g b) == (Custom r' g' b') =
+            r == r' && g == g' && b == b'
+        _ == _ = False-}
+
+    stdMap _ [] = []
+    stdMap f (x:xs) = f x : map f xs
+
+    stdFilter _ [] = []
+    stdFilter p (x:xs) | p x = x : filter p xs
+                       | otherwise = filter p xs
+
+    -- Write `and` in terms of foldr
+    stdAnd [] = True
+    stdAnd (x:xs) = if x then stdAnd xs else False
+
+
+
+    -- Write concatMap f in terms of foldr
     main = do
         putStrLn("TEST")
 
